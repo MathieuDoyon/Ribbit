@@ -14,8 +14,10 @@
       IMPORTANT: Change "com.parse.starter.permission.C2D_MESSAGE" in the lines below
       to match your app's package name + ".permission.C2D_MESSAGE".
     -->
-    <permission android:protectionLevel="signature"
-        android:name="com.studiofrenetic.ribbit.permission.C2D_MESSAGE" />
+    <permission
+        android:name="com.studiofrenetic.ribbit.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.studiofrenetic.ribbit.permission.C2D_MESSAGE" />
 
     <application
@@ -42,8 +44,16 @@
         <activity
             android:name=".SignupActivity"
             android:label="@string/title_activity_signup"
+            android:parentActivityName=".LoginActivity"
+            android:screenOrientation="portrait" >
+        </activity>
+        <activity
+            android:name=".EditFriendsActivity"
+            android:label="@string/title_activity_edit_friends"
             android:screenOrientation="portrait"
-            android:parentActivityName=".LoginActivity">
+            android:parentActivityName=".MainActivity">
+            <meta-data android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
         </activity>
     </application>
 
