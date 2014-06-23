@@ -24,9 +24,9 @@ public class FriendsFragment extends ListFragment {
 
     public static final String TAG = ListFragment.class.getSimpleName();
 
-    protected List<ParseUser> mFriends;
-    protected ParseRelation<ParseUser> mFriendsRelation;
     protected ParseUser mCurrentUser;
+    protected ParseRelation<ParseUser> mFriendsRelation;
+    protected List<ParseUser> mFriends;
 
 
     @Override
@@ -45,9 +45,14 @@ public class FriendsFragment extends ListFragment {
         mCurrentUser = ParseUser.getCurrentUser();
         mFriendsRelation = mCurrentUser.getRelation(ParseConstants.KEY_FRIENDS_RELATION);
 
-        mFriendsRelation.getQuery().findInBackground(new FindCallback<ParseUser>() {
+        getActivity().setProgressBarIndeterminateVisibility(true);
+
+        ParseQuery<ParseUser> query = mFriendsRelation.getQuery();
+        query.addAscendingOrder(ParseConstants.KEY_USERNAME);
+        query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> friends, ParseException e) {
+                getActivity().setProgressBarIndeterminateVisibility(false);
                 if (e == null) {
                     mFriends = friends;
                     String[] usernames = new String[mFriends.size()];
